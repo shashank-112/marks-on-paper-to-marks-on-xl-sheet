@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #181818;
+      color: #fff;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Navbar Styles */
+    header {
+      background-color: #ffffff;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      width: 100px;
+      height: auto;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .nav-links a, .dropdown {
+      font-family: 'Playfair Display', serif;
+      font-size: 40px;
+      color: #000;
+      text-decoration: none;
+      position: relative;
+    }
+    
+    .dropdown {
+      cursor: pointer;
+    }
+    
+    .arrow {
+      margin-left: 5px;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #000;
+      display: inline-block;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      padding: 10px;
+      z-index: 1;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .dropdown-content a {
+      color: black;
+      padding: 10px;
+      text-decoration: none;
+      display: block;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+    
+    .separator {
+      border-left: 2px solid #000;
+      height: 40px;
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+    
+    .globe-icon {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+    
+    .login {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+    }
+    
+    .get-started {
+      background-color: #166AEA;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 35px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    
+    .get-started:hover {
+      background-color: #166AEA;
+    }
+
+    /* Main Styles */
+    main {
+      position: relative;
+      padding: 20px;
+    }
+
+    /* Loading Screen Styles */
+    #loading {
+      position: fixed;
+      top: 100px;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 100px);
+      background-color: #212121;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+    
+    #loading div {
+      width: 100px;
+      height: 100px;
+      border: 13px solid #ffffff;
+      border-top: 13px solid #007bff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    #loading h1 {
+      margin-top: 40px;
+      font-size: 40px;
+      color: #ffffff;
+      font-family: 'Playfair Display', serif;
+    }
+      
+      #loading p {
+        margin-top: 40px;
+        font-size: 40px;
+        color: #ffffff;
+        font-family: 'Playfair Display', serif;
+      }
+      
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Hides the loader after page loads */
+    body.loaded #loading {
+      display: none;
+    }
+  </style>
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <img src="./static/previews/logo.png" alt="Logo" style="height: 100%; max-height: 80px;">
+      <div class="nav-links">
+        <div class="dropdown">
+          <span>Product<span class="arrow"></span></span>
+        </div>
+        <div class="dropdown">
+          <span style="padding-left: 20px;">Solution<span class="arrow"></span></span>
+        </div>
+        <a style="padding-left: 20px;" class="help" href="#">help<span class="arrow"></span></a>
+        <a style="padding-left: 20px; padding-right: 320px;" class="about" href="#">about<span class="arrow"></span></a>
+        <img src="./static/previews/lang.png" alt="Globe Icon" class="globe-icon" onclick="window.location.href='languages.html'">
+        <a style="text-decoration: underline; font-size: 25px;" class="login" href="#">Login</a>
+        <div class="separator"></div>
+        <button style="margin-right: 16px; padding: 20px 30px 20px 30px; font-size: 25px;" class="get-started">Get Started</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Loading Screen -->
+    <div id="loading">
+      <div></div>
+      <h1>converting into csv file!...</h1>
+    </div>
+
+    <!-- Main content -->
+    <div id="status-message"></div>
+  </main>
+
+  <script>
+    $(window).on('load', function() {
+      // Poll the status route every 2 seconds to check if the task is completed
+      const pollInterval = setInterval(function() {
+        $.get("/status", function(data) {
+          if (data.status === "completed") {
+            clearInterval(pollInterval); // Stop polling
+            $('#status-message').text('Conversion to XLSX completed successfully!');
+            // Optionally, redirect to another page after 3 seconds
+            setTimeout(function() {
+              window.location.href = '/conversion_complete'; // Or just update the page dynamically
+            }, 3000);
+          } else if (data.status === "failed") {
+            clearInterval(pollInterval); // Stop polling
+            $('#status-message').text('Error during conversion. Please try again.');
+          }
+        });
+      }, 2000); // Poll every 2 seconds
+    });
+  </script>
+
+</body>
+</html>

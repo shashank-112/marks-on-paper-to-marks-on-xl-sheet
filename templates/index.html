@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vízx - Transform Tables into Polished CSVs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #181818;
+      color: #fff;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Navbar Styles */
+    header {
+      background-color: #ffffff; 
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      width: 100px;
+      height: auto;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .nav-links a, .dropdown {
+      font-family: 'Playfair Display', serif;
+      font-size: 40px;
+      color: #000;
+      text-decoration: none;
+      position: relative;
+    }
+    
+    .dropdown {
+      cursor: pointer;
+    }
+    
+    .arrow {
+      margin-left: 5px;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #000; /* Arrow color */
+      display: inline-block;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      padding: 10px;
+      z-index: 1;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .dropdown-content a {
+      color: black;
+      padding: 10px;
+      text-decoration: none;
+      display: block;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+    
+    .separator {
+      border-left: 2px solid #000; /* Vertical line */
+      height: 40px;
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+    
+    .globe-icon {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+    
+    .login {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+    }
+    
+    .get-started {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 35px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    
+    .get-started:hover {
+      background-color: #0056b3;
+    }
+    
+    /* Main Content Styles */
+    main {
+      padding: 20px;
+    }
+    
+    .content {
+      text-align: center;
+    }
+    
+    h1 {
+      font-size: 80px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      margin-bottom: 20px;
+      margin-top: 100px;
+    }
+    
+    p {
+      font-size: 28px;
+      line-height: 1.5;
+      margin-top: 50px;
+      margin-bottom: 100px;
+      margin-left: 130px;
+      margin-right: 160px;
+    }
+    
+    button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 35px;
+      font-size: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+      background-color: #0056b3;
+    }
+    
+    .select-file-btn {
+      background-color: #007bff;
+      color: #fff;
+      padding: 20px 130px; /* Adjust the padding for this button only */
+      border: none;
+      border-radius: 50px;
+      font-size: 40px; /* Adjust the font size for this button */
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .select-f ile-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <img src="./static/previews/logo.png" alt="Logo" style="height: 100%; max-height: 80px;">
+      <div class="nav-links">
+        <div class="dropdown">
+          <span>Product<span class="arrow"></span></span>
+        </div>
+        <div class="dropdown">
+          <span style="padding-left: 20px;">Solution<span class="arrow"></span></span>
+        </div>
+        <a style="padding-left: 15px;" class="help" href="#">help<span class="arrow"></span></a>
+        <a style="padding-left: 20px; padding-right: 340px;" class="about" href="#">about<span class="arrow"></span></a>
+        <img src="./static/previews/lang.png" alt="Globe Icon" class="globe-icon" onclick="window.location.href='languages.html'">
+        <a style="text-decoration: underline; font-size: 25px;" class="login" href="#">Login</a>
+        <div class="separator"></div>
+        <button style="margin-right: 16px; padding: 20px 30px 20px 30px; font-size: 25px;" class="get-started">Get Started</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="content">
+
+      <h1>Transform Tables into Polished CSVs</h1>
+      <p>A website to extract .csv or .xlsx sheets out of a PDF containing images of tabular data, most likely for marks containing handwritten digits.</p>
+      
+      <!-- Add a form to handle file upload -->
+      <form id="uploadForm" action="/" method="POST" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="file" style="display:none;" accept="application/pdf" />
+        <button type="button" class="select-file-btn" onclick="document.getElementById('fileInput').click()">Select File</button>
+      </form>
+
+    </div>
+  </main>
+  
+  <script>
+    document.getElementById('fileInput').addEventListener('change', function() {
+      document.getElementById('uploadForm').submit(); // Automatically submit the form after selecting a file
+    });
+  </script>
+  
+</body>
+</html>

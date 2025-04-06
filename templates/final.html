@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #181818;
+            color: #fff;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+          }
+      
+          /* Navbar Styles */
+          header {
+            background-color: #ffffff; 
+            padding-top: 10px;
+            padding-bottom: 10px;
+          }
+          
+          nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          
+          .logo {
+            width: 100px;
+            height: auto;
+          }
+          
+          .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+          }
+          
+          .nav-links a, .dropdown {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            color: #000;
+            text-decoration: none;
+            position: relative;
+          }
+          
+          .dropdown {
+            cursor: pointer;
+          }
+          
+          .arrow {
+            margin-left: 5px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #000; /* Arrow color */
+            display: inline-block;
+          }
+          
+          .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            z-index: 1;
+          }
+          
+          .dropdown:hover .dropdown-content {
+            display: block;
+          }
+          
+          .dropdown-content a {
+            color: black;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+          }
+          
+          .dropdown-content a:hover {
+            background-color: #ddd;
+          }
+          
+          .separator {
+            border-left: 2px solid #000; /* Vertical line */
+            height: 40px;
+            margin-left: 0px;
+            margin-right: 0px;
+          }
+          
+          .globe-icon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+          }
+          
+          .login {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+          }
+          
+          .get-started {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 35px;
+            font-size: 20px;
+            cursor: pointer;
+          }
+          
+          .get-started:hover {
+            background-color: #0056b3;
+          }
+
+          main {
+            display: flex;
+            height: 88vh; /* Take up the full height of the viewport */
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        /* Left side (image container) */
+        .left-section {
+            flex: 1;
+            height: 100% - 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-container {
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .image-caption {
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* Right side (content with text and button) */
+        .right-section {
+            width: 40%; /* Take up 50% of the screen */
+            background-color: #111111;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center vertically */
+            align-items: center;     /* Center horizontally */
+            color: white;
+            text-align: center;      /* Center the text */
+            box-sizing: border-box;  /* Ensure padding is included in width calculation */
+            height: 100vh;           /* Take up the full height of the viewport */
+        }
+        
+        .right-section h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .right-section p {
+            font-family: 'Arial', sans-serif;
+            font-size: 20px;
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+        
+        .convert-button {
+            background-color: #166AEA;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 35px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            align-self: center; /* Ensure the button stays centered */
+        }
+
+        .convert-button1{
+            background-color: #166AEA;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            align-self: center; /* Ensure the button stays centered */
+            padding: 20px 60px 20px 60px;
+            font-size: 45px;
+            margin-top: 30px;
+            margin-bottom: 160px;
+        }
+
+        .convert-button:hover {
+            background-color: #1452c3;
+            
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="./static/previews/logo.png" alt="Logo" style="height: 100%; max-height: 80px;">
+            <div class="nav-links">
+              <div class="dropdown">
+                <span>Product<span class="arrow"></span></span>
+              </div>
+              <div class="dropdown">
+                <span style="padding-left: 20px;">Solution<span class="arrow"></span></span>
+              </div>
+              <a style="padding-left: 15px;" class="help" href="#">help<span class="arrow"></span></a>
+              <a style="padding-left: 20px; padding-right: 340px;" class="about" href="#">about<span class="arrow"></span></a>
+              <img src="./static/previews/lang.png" alt="Globe Icon" class="globe-icon" onclick="window.location.href='languages.html'">
+              <a style="text-decoration: underline; font-size: 25px;" class="login" href="#">Login</a>
+              <div class="separator"></div>
+              <button style="margin-right: 16px; padding: 20px 30px 20px 30px; font-size: 25px;" class="get-started">Get Started</button>
+            </div>
+          </nav>  
+    </header>
+    <main>
+      <div class="left-section">
+          <div class="image-container">
+              <img src="./static/previews/xlsximage.png" alt="tables.xlsx">
+              <div class="image-caption">tables.xlsx</div>
+          </div>
+      </div>
+  
+      <div class="right-section">
+          <h1 style="font-size: 65px;">PDF to XLSX</h1>
+          <p style="padding-left: 40px; padding-right: 50px; font-size: 30px;">
+              Your PDF has been seamlessly converted into an Excel spreadsheet using advanced OCR technology and other essential APIs.
+          </p>
+          <a href="/download?xlsx_file={{ xlsx_file }}" class="convert-button1">Download CSV file</a>
+      </div>
+  </main>
+    <script>
+        function downloadFile() {
+          // This is a placeholder for now.
+          // When you integrate with your backend, update the 'href' attribute to point to the XLSX file.
+          window.location.href = 'path/to/your/file.xlsx'; 
+        }
+      </script>
+</body>
+</html>
